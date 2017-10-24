@@ -1,26 +1,21 @@
-import json
-import tweepy
-from tweepy import OAuthHandler
-
-CONSUMER_KEY = '1lcxZ8FNcSj7FfSIqqgybYMyK'
-CONSUMER_SECRET = 'NEaZcJ26T6O6i8BJcr6rQ3F4t7IvdUzy3Mff7hsZ2Mnqi3Qs1W'
-OAUTH_TOKEN = '921001241467064321-zj9SdXBH2oGFmS0DxmCRt7vJfo7vurZ'
-OAUTH_TOKEN_SECRET = 'xrwTg4QMXLlr02pGnbjF63rXubux3D49giHmvCO8VgmKc'
-
-def get_auth():
-    auth = OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-    auth.set_access_token(OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
-    return auth
-
-def get_api():
-    auth = get_auth()
-    return tweepy.API(auth)
+from auth import get_api 
 
 api = get_api()
 
-
 DUB_WOE_ID = 560743
-
+LON_WOE_ID = 44418
+ 
+ 
 dub_trends = api.trends_place(DUB_WOE_ID)
-
-print (json.dumps(dub_trends, indent=1))
+lon_trends = api.trends_place(LON_WOE_ID)
+ 
+dub_trends_set = set([trend['name']
+                   for trend in dub_trends[0]['trends']])
+ 
+lon_trends_set = set([trend['name']
+                  for trend in lon_trends[0]['trends']])
+ 
+common_trends = set.intersection(dub_trends_set, lon_trends_set)
+ 
+ 
+print (common_trends)
