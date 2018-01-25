@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,12 +7,11 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Search Results</h1>
-    <p>You searched for {{ searched_for }}.</p>
+    <h1>Previous Searches</h1>
 
     <ul>
-        {% for tweet in the_tweets %}
-        <li>{{ tweet.text }}</li>
+        {% for item in search_terms %}
+        <li>{{ item }}</li>
         {% endfor %}
     </ul>
 </body>
